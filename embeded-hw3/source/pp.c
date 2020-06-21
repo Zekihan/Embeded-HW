@@ -55,12 +55,15 @@ double horner_poly(double a[], double x, int degree)
 /*Horner's method for polynomial evaluation*/
 double op_horner_poly(double a[], double x, int degree)
 {
-	int i = degree - 1;
+	long int i;
 	double result = a[degree];
-	for (; i >= 2; i -= 2)
+	double temp = 0;
+	for (i = degree - 1; i >= 4; i -= 4)
 	{
-		result = a[i] + (x * result);
-		result = a[i - 1] + (x * result);
+		double temp = a[i] + (x * result);
+		temp = a[i - 1] + (x * temp);
+		temp = a[i - 2] + (x * temp);
+		result = a[i - 3] + (x * temp);
 	}
 	for (; i >= 0; i--)
 	{
@@ -117,16 +120,16 @@ void main()
 	for (int i = 0; i < 1000; i++)
 	{
 		a[i] = ((double)rand() / (double)(RAND_MAX));
-		//printf("%f\n", a[i]);
+		//printf("%.17g\n", a[i]);
 	}
 
 	int deg = 10;
-	printf("%f\n", combined(a, 2, deg));
-	printf("%f\n", op_combined(a, 2, deg));
-	printf("%f\n", poly(a, 2, deg));
-	printf("%f\n", op_poly(a, 2, deg));
-	printf("%f\n", horner_poly(a, 2, deg));
-	printf("%f\n", op_horner_poly(a, 2, deg));
+	printf("%.17g\n", combined(a, 2, deg));
+	printf("%.17g\n", op_combined(a, 2, deg));
+	printf("%.17g\n", poly(a, 2, deg));
+	printf("%.17g\n", op_poly(a, 2, deg));
+	printf("%.17g\n", horner_poly(a, 2, deg));
+	printf("%.17g\n", op_horner_poly(a, 2, deg));
 
 	clock_t time;
 
@@ -135,40 +138,40 @@ void main()
 		//poly(a,2,999);
 		combined(a, 2, 999);
 	time = clock() - time; //ends time
-	printf("combined: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("combined: %.17g\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
 		//poly(a,2,999);
 		op_combined(a, 2, 999);
 	time = clock() - time; //ends time
-	printf("combined op: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("combined op: %.17g\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
 		//poly(a,2,999);
 		poly(a, 2, 999);
 	time = clock() - time; //ends time
-	printf("poly: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("poly: %.17g\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
 		//poly(a,2,999);
 		op_poly(a, 2, 999);
 	time = clock() - time; //ends time
-	printf("poly op: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("poly op: %.17g\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
 		//poly(a,2,999);
 		horner_poly(a, 2, 999);
 	time = clock() - time; //ends time
-	printf("horner: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("horner: %.17g\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
 		//poly(a,2,999);
 		op_horner_poly(a, 2, 999);
-	time = clock() - time; //ends time
-	printf("horner op: %f\n", (double)time / CLOCKS_PER_SEC);
+	clock_t time = clock() - time; //ends time
+	printf("horner op: %.17g\n", (double)time / CLOCKS_PER_SEC);
 }
