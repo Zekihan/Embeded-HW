@@ -4,22 +4,23 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
 
 gcc ../source/horner_poly_unop.c -o ../out/horner_poly_unop_out
+gcc ../source/horner_poly_op1.c -o ../out/horner_poly_op1_out
 gcc ../source/poly_unop.c -o ../out/poly_unop_out
 
-sum=0
+echo Horner Poly unoptimized
 for i in {1..10}
 do
-    OUTPUT=$(../out/horner_poly_unop_out)
-    sum=$(echo "scale=9; ${sum} + ${OUTPUT}" | bc)
+    ../out/horner_poly_unop_out
 done
-echo Horner Poly Unoptimized
-echo "scale=9; ${sum} / 10" | bc
 
-sum=0
+echo Horner Poly optimized 1
 for i in {1..10}
 do
-    OUTPUT=$(../out/poly_unop_out)
-    sum=$(echo "scale=9; ${sum} + ${OUTPUT}" | bc)
+../out/horner_poly_op1_out
 done
+
 echo Poly Unoptimized
-echo "scale=9; ${sum} / 10" | bc
+for i in {1..10}
+do
+    ../out/poly_unop_out
+done
