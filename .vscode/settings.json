@@ -2,5 +2,5 @@
     "files.associations": {
         "functional": "c"
     },
-    "python.pythonPath": "C:\\Users\\Zekihan\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe"
+    "python.pythonPath": "/usr/bin/python3"
 }
