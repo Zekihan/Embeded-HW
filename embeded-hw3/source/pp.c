@@ -58,7 +58,6 @@ double horner_poly_optimized(double a[], double x, int degree)
 {
 	long int i;
 	double result = a[degree];
-	double temp = 0;
 	for (i = degree - 1; i >= 4; i -= 4)
 	{
 		result = a[i - 3] + (x * (a[i - 2] + (x * (a[i - 1] + (x * (a[i] + (x * result)))))));
@@ -123,11 +122,6 @@ void main()
 	{
 		a[i] = ((double)rand() / (double)(RAND_MAX));
 	}
-
-	// printf("mixed: %f\n", mixed(a, 2, 9));
-	// printf("mixed optimized: %f\n", mixed_optimized(a, 2, 9));
-	// printf("mixed: %f\n", mixed(a, 2, 10));
-	// printf("mixed optimized: %f\n", mixed_optimized(a, 2, 10));
 
 	// calls to the functions
 	clock_t time;
