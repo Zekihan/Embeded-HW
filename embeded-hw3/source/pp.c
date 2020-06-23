@@ -60,10 +60,7 @@ double op_horner_poly(double a[], double x, int degree)
 	double temp = 0;
 	for (i = degree - 1; i >= 4; i -= 4)
 	{
-		double temp = a[i] + (x * result);
-		temp = a[i - 1] + (x * temp);
-		temp = a[i - 2] + (x * temp);
-		result = a[i - 3] + (x * temp);
+		result = a[i - 3] + (x * (a[i - 2] + (x * (a[i - 1] + (x * (a[i] + (x * result)))))));
 	}
 	for (; i >= 0; i--)
 	{
@@ -123,13 +120,21 @@ void main()
 		//printf("%f\n", a[i]);
 	}
 
-	// int deg = 10;
-	// printf("%f\n", combined(a, 2, deg));
-	// printf("%f\n", op_combined(a, 2, deg));
-	// printf("%f\n", poly(a, 2, deg));
-	// printf("%f\n", op_poly(a, 2, deg));
-	// printf("%f\n", horner_poly(a, 2, deg));
-	// printf("%f\n", op_horner_poly(a, 2, deg));
+	int deg = 10;
+	printf("%f\n", combined(a, 2, deg));
+	printf("%f\n", op_combined(a, 2, deg));
+	printf("%f\n", poly(a, 2, deg));
+	printf("%f\n", op_poly(a, 2, deg));
+	printf("%f\n", horner_poly(a, 2, deg));
+	printf("%f\n", op_horner_poly(a, 2, deg));
+
+	deg = 9;
+	printf("----\n%f\n", combined(a, 2, deg));
+	printf("%f\n", op_combined(a, 2, deg));
+	printf("%f\n", poly(a, 2, deg));
+	printf("%f\n", op_poly(a, 2, deg));
+	printf("%f\n", horner_poly(a, 2, deg));
+	printf("%f\n", op_horner_poly(a, 2, deg));
 
 	clock_t time;
 
