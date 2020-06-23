@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdio.h>
 
-/*Direct polynomial evaluation*/
+// Direct polynomial evaluation
 double poly(double a[], double x, int degree)
 {
 	long int i;
@@ -16,8 +16,8 @@ double poly(double a[], double x, int degree)
 	return result;
 }
 
-/*Direct polynomial evaluation*/
-double op_poly(double a[], double x, int degree)
+// Direct polynomial evaluation with optimizations
+double poly_optimized(double a[], double x, int degree)
 {
 	int i;
 	int limit = degree - 1;
@@ -28,21 +28,21 @@ double op_poly(double a[], double x, int degree)
 	for (i = 1; i <= limit; i += 2)
 	{
 		result1 += a[i] * xpwr1;
-		xpwr1 = x * x * xpwr1;
+		xpwr1 *= x * x;
 
 		result2 += a[i + 1] * xpwr2;
-		xpwr2 = x * x * xpwr2;
+		xpwr2 *= x * x;
 	}
 
 	for (; i <= degree; i++)
 	{
 		result1 += a[i] * xpwr1;
-		xpwr1 = x * x * xpwr1;
+		xpwr1 *= x * x;
 	}
 	return result1 + result2;
 }
 
-/*Horner's method for polynomial evaluation*/
+// Horner's polynomial evaluation
 double horner_poly(double a[], double x, int degree)
 {
 	long int i;
@@ -52,8 +52,8 @@ double horner_poly(double a[], double x, int degree)
 	return result;
 }
 
-/*Horner's method for polynomial evaluation*/
-double op_horner_poly(double a[], double x, int degree)
+// Horner's polynomial evaluation with optimizations
+double horner_poly_optimized(double a[], double x, int degree)
 {
 	long int i;
 	double result = a[degree];
@@ -69,41 +69,44 @@ double op_horner_poly(double a[], double x, int degree)
 	return result;
 }
 
-/*Combined for polynomial evaluation*/
-double combined(double a[], double x, int degree)
+// Mixed polynomial evaluation
+double mixed(double a[], double x, int degree)
 {
 	long int i;
 	double result = a[0];
 	double xpwr = x;
-	for (i = 1; i <= degree - 1; i += 2)
+	for (i = 1; i <= degree - 2; i += 2)
 	{
 		result += xpwr * (a[i] + (a[i + 1] * x));
-		xpwr = x * x * xpwr;
+		xpwr *= x * x;
 	}
 	for (; i <= degree; i++)
 	{
 		result += xpwr * (a[i]);
-		xpwr = x * xpwr;
+		xpwr *= x;
 	}
 	return result;
 }
 
-/*Combined for polynomial evaluation*/
-double op_combined(double a[], double x, int degree)
+// Mixed polynomial evaluation with optimizations
+double mixed_optimized(double a[], double x, int degree)
 {
 	int i;
 	int limit = degree - 1;
 	double result = a[0];
 	double xpwr = x;
-	for (i = 1; i <= limit; i += 2)
+	for (i = 1; i <= degree - 8; i += 8)
 	{
-		result += xpwr * (a[i] + (a[i + 1] * x));
-		xpwr = x * x * xpwr;
+		result += (xpwr * (a[i] + (a[i + 1] * x))) +
+				  (x * x * xpwr * (a[i + 2] + (a[i + 3] * x))) +
+				  (x * x * x * x * xpwr * (a[i + 4] + (a[i + 5] * x))) +
+				  (x * x * x * x * x * x * xpwr * (a[i + 6] + (a[i + 7] * x)));
+		xpwr *= x * x * x * x * x * x * x * x;
 	}
 	for (; i <= degree; i++)
 	{
 		result += xpwr * (a[i]);
-		xpwr = x * xpwr;
+		xpwr *= x;
 	}
 	return result;
 }
@@ -117,66 +120,56 @@ void main()
 	for (int i = 0; i < 1000; i++)
 	{
 		a[i] = ((double)rand() / (double)(RAND_MAX));
-		//printf("%f\n", a[i]);
 	}
 
-	int deg = 10;
-	printf("%f\n", combined(a, 2, deg));
-	printf("%f\n", op_combined(a, 2, deg));
-	printf("%f\n", poly(a, 2, deg));
-	printf("%f\n", op_poly(a, 2, deg));
-	printf("%f\n", horner_poly(a, 2, deg));
-	printf("%f\n", op_horner_poly(a, 2, deg));
-
-	deg = 9;
-	printf("----\n%f\n", combined(a, 2, deg));
-	printf("%f\n", op_combined(a, 2, deg));
-	printf("%f\n", poly(a, 2, deg));
-	printf("%f\n", op_poly(a, 2, deg));
-	printf("%f\n", horner_poly(a, 2, deg));
-	printf("%f\n", op_horner_poly(a, 2, deg));
-
+	// calls to the functions
 	clock_t time;
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
-		//poly(a,2,999);
-		combined(a, 2, 999);
+	{
+		mixed(a, 2, 999);
+	}
 	time = clock() - time; //ends time
-	printf("combined: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("mixed: %f\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
-		//poly(a,2,999);
-		op_combined(a, 2, 999);
+	{
+		mixed_optimized(a, 2, 999);
+	}
 	time = clock() - time; //ends time
-	printf("combined op: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("mixed optimized: %f\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
-		//poly(a,2,999);
+	{
 		poly(a, 2, 999);
+	}
 	time = clock() - time; //ends time
 	printf("poly: %f\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
-		//poly(a,2,999);
-		op_poly(a, 2, 999);
+	{
+		poly_optimized(a, 2, 999);
+	}
 	time = clock() - time; //ends time
-	printf("poly op: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("poly optimized: %f\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
-		//poly(a,2,999);
+	{
 		horner_poly(a, 2, 999);
+	}
 	time = clock() - time; //ends time
 	printf("horner: %f\n", (double)time / CLOCKS_PER_SEC);
 
 	time = clock();					  //starts time
 	for (int i = 0; i < 1000000; i++) //call multiple times to get significant values
-		//poly(a,2,999);
-		op_horner_poly(a, 2, 999);
+	{
+		horner_poly_optimized(a, 2, 999);
+	}
 	time = clock() - time; //ends time
-	printf("horner op: %f\n", (double)time / CLOCKS_PER_SEC);
+	printf("horner optimized: %f\n", (double)time / CLOCKS_PER_SEC);
 }

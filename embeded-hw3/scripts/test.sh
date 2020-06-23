@@ -7,6 +7,7 @@ gcc ../source/pp.c -o ../out/pp
 
 for i in {1..10}
 do
-    echo $i
+    echo "------------------------------------"
+    echo run $i
     ../out/pp
 done
