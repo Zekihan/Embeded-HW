@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $DIR
 
-gcc ../source/pp.c -o ../out/pp
+gcc ../source/pp.c -o ../out/pp -Ofast
 
 for i in {1..10}
 do
