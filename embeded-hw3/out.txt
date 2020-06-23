@@ -1,80 +1,80 @@
 ------------------------------------
 run 1
-mixed: 2.497042
-mixed optimized: 2.515738
-poly: 4.682732
-poly optimized: 2.723634
-horner: 5.856750
-horner optimized: 3.690169
+mixed: 2.701618
+mixed optimized: 1.957689
+poly: 4.956589
+poly optimized: 2.694509
+horner: 5.614269
+horner optimized: 3.762377
 ------------------------------------
 run 2
-mixed: 2.322899
-mixed optimized: 1.974895
-poly: 4.569616
-poly optimized: 2.490272
-horner: 5.424922
-horner optimized: 3.645753
+mixed: 2.391811
+mixed optimized: 1.775808
+poly: 5.010774
+poly optimized: 3.182422
+horner: 6.235662
+horner optimized: 4.128290
 ------------------------------------
 run 3
-mixed: 2.191691
-mixed optimized: 2.809128
-poly: 4.872983
-poly optimized: 3.443739
-horner: 7.087232
-horner optimized: 3.929876
+mixed: 2.580119
+mixed optimized: 1.776443
+poly: 5.098019
+poly optimized: 2.861665
+horner: 5.727601
+horner optimized: 3.822264
 ------------------------------------
 run 4
-mixed: 2.673349
-mixed optimized: 2.884578
-poly: 5.260402
-poly optimized: 2.919732
-horner: 5.788453
-horner optimized: 3.929845
+mixed: 2.380137
+mixed optimized: 1.761133
+poly: 4.848907
+poly optimized: 2.704877
+horner: 5.619052
+horner optimized: 3.795454
 ------------------------------------
 run 5
-mixed: 2.577637
-mixed optimized: 2.463326
-poly: 4.592339
-poly optimized: 2.436326
-horner: 5.278119
-horner optimized: 3.574529
+mixed: 2.941691
+mixed optimized: 2.347533
+poly: 5.542181
+poly optimized: 2.855806
+horner: 6.182397
+horner optimized: 4.166889
 ------------------------------------
 run 6
-mixed: 2.170259
-mixed optimized: 2.401317
-poly: 4.864928
-poly optimized: 2.487025
-horner: 5.243150
-horner optimized: 3.617920
+mixed: 2.592180
+mixed optimized: 1.818190
+poly: 5.158869
+poly optimized: 2.873176
+horner: 5.856366
+horner optimized: 3.958323
 ------------------------------------
 run 7
-mixed: 2.198299
-mixed optimized: 1.971120
-poly: 4.550490
-poly optimized: 2.632567
-horner: 5.587569
-horner optimized: 3.651129
+mixed: 2.408578
+mixed optimized: 1.762368
+poly: 4.831484
+poly optimized: 2.698036
+horner: 5.631438
+horner optimized: 3.796845
 ------------------------------------
 run 8
-mixed: 2.197281
-mixed optimized: 2.644741
-poly: 5.320558
-poly optimized: 3.213225
-horner: 6.347800
-horner optimized: 4.192272
+mixed: 2.385238
+mixed optimized: 1.783420
+poly: 4.912341
+poly optimized: 2.691865
+horner: 5.618615
+horner optimized: 3.822049
 ------------------------------------
 run 9
-mixed: 2.209590
-mixed optimized: 2.671781
-poly: 5.777098
-poly optimized: 3.302646
-horner: 5.991293
-horner optimized: 3.573713
+mixed: 2.414872
+mixed optimized: 1.770718
+poly: 4.900357
+poly optimized: 2.674288
+horner: 5.589721
+horner optimized: 3.884773
 ------------------------------------
 run 10
-mixed: 2.159938
-mixed optimized: 2.204613
-poly: 4.534352
-poly optimized: 2.446265
-horner: 5.214359
-horner optimized: 3.551395
+mixed: 2.423730
+mixed optimized: 1.737915
+poly: 4.975698
+poly optimized: 2.687903
+horner: 5.608984
+horner optimized: 3.797048

@@ -23,21 +23,22 @@ double poly_optimized(double a[], double x, int degree)
 	int limit = degree - 1;
 	double result1 = a[0];
 	double result2 = 0;
+	double xs = x * x;
 	double xpwr1 = x;
-	double xpwr2 = x * x;
+	double xpwr2 = xs;
 	for (i = 1; i <= limit; i += 2)
 	{
 		result1 += a[i] * xpwr1;
-		xpwr1 *= x * x;
+		xpwr1 *= xs;
 
 		result2 += a[i + 1] * xpwr2;
-		xpwr2 *= x * x;
+		xpwr2 *= xs;
 	}
 
 	for (; i <= degree; i++)
 	{
 		result1 += a[i] * xpwr1;
-		xpwr1 *= x * x;
+		xpwr1 *= xs;
 	}
 	return result1 + result2;
 }
@@ -95,13 +96,14 @@ double mixed_optimized(double a[], double x, int degree)
 	int limit = degree - 1;
 	double result = a[0];
 	double xpwr = x;
+	double xs = x * x;
 	for (i = 1; i <= degree - 8; i += 8)
 	{
-		result += (xpwr * (a[i] + (a[i + 1] * x))) +
-				  (x * x * xpwr * (a[i + 2] + (a[i + 3] * x))) +
-				  (x * x * x * x * xpwr * (a[i + 4] + (a[i + 5] * x))) +
-				  (x * x * x * x * x * x * xpwr * (a[i + 6] + (a[i + 7] * x)));
-		xpwr *= x * x * x * x * x * x * x * x;
+		result += xpwr * (((a[i] + (a[i + 1] * x))) +
+						  xs * (((a[i + 2] + (a[i + 3] * x))) +
+								xs * (((a[i + 4] + (a[i + 5] * x))) +
+									  (xs * (a[i + 6] + (a[i + 7] * x))))));
+		xpwr *= xs * xs * xs * xs;
 	}
 	for (; i <= degree; i++)
 	{
@@ -121,6 +123,11 @@ void main()
 	{
 		a[i] = ((double)rand() / (double)(RAND_MAX));
 	}
+
+	// printf("mixed: %f\n", mixed(a, 2, 9));
+	// printf("mixed optimized: %f\n", mixed_optimized(a, 2, 9));
+	// printf("mixed: %f\n", mixed(a, 2, 10));
+	// printf("mixed optimized: %f\n", mixed_optimized(a, 2, 10));
 
 	// calls to the functions
 	clock_t time;
